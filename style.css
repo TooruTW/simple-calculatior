@@ -1,0 +1,100 @@
+
+/* 
+將計算機的box至中
+::before, ::after 偽物件函數 不用到HTML可直接在css檔案中直接生成一個偽物件 
+此物件只會顯示在原始碼中 不會顯示在畫面上 可用於物件至中
+ */
+*, *::before, *::after {
+    /* 
+    box-sizing: 控制物件大小的方式
+    有兩種函數
+        border-box:控制盒子大小 內容會隨著變化。
+        content-box:控制內容大小 盒子會隨著變化。（預設屬性）
+    */
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-weight: normal;
+}
+
+/* 設定背景顏色 */
+body {
+    padding: 0;
+    margin: 0;
+    /* background: linear-gradient(方向, 顏色Ａ,顏色Ｂ,顏色Ｃ...) ==> 漸層變色函數  */
+    background: linear-gradient(to right, #00AAFF, #00FF6C);
+}
+
+/* 設定計算機的按鍵排列方式 */
+.calculator-grid{
+
+    display: grid;
+    /* 水平線排列 */
+    justify-content: center;
+    /* 垂直線排列 */
+    align-content: center;
+    min-height: 100vh;
+    /* 行數行寬 */
+    grid-template-columns: repeat(4,100px);
+    /* 列數列寬 
+    minmax(120px,auto)第一列：最小高度120px最高配合內容調整
+    repeat(5,100px)第二到六列：100px的列五個
+    */
+    grid-template-rows: minmax(120px,auto) repeat(5,100px);
+}
+
+/* 設定按鍵效果 */
+.calculator-grid > button{
+    /* 設定游標到此object上時的圖示 */
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid white;
+    outline: none;
+    background-color: rgba(255, 255, 255, .75);
+}
+
+/* 設定游標到按鍵上時的按鍵效果 */
+.calculator-grid > button:hover {
+    background-color: rgba(255, 255, 255, .9);
+}
+
+.span-two{
+    /* 此項目佔兩格gird格子 */
+    grid-column: span 2;
+}
+
+/* 數字顯示畫面 */
+.output{
+    /* 顯示範圍從grid第一格到倒數第一格 */
+    grid-column: 1 / -1;
+    background-color: rgba(0, 0, 0, .75);
+    display: flex;
+    /* 內容至垂直底部 */
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+
+    /* word-wrap表示換行時怎麼換
+        normal:在句子中的不連續部位換行
+        break-word:強制換行不管單字內容
+        
+        word-break表示文太長時要不要換
+        normal：太長時換但以詞為單位換行
+        break-all：太長就換行不管詞
+        keep-all：沒有空白或換行符號隔開就不換行
+    */
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+/* 歷史數字樣式 */
+.output .preverious-operand{
+    color: rgba(255,255,255,.75);
+    font-size: 1.5rem;
+}
+
+/* 當前數字樣式 */
+.output .current-operand{
+    color: white;
+    font-size: 2.5rem;
+}
